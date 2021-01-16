@@ -35,6 +35,7 @@
         <mydnacodes-rest-lib.version>1.0.2-SNAPSHOT</mydnacodes-rest-lib.version>
         <mydnacodes-auth-lib.version>1.0.0-SNAPSHOT</mydnacodes-auth-lib.version>
         <mydnacodes-sequence-bank-lib.version>1.0.0-SNAPSHOT</mydnacodes-sequence-bank-lib.version>
+        <mydnacodes-notification-service-lib.version>1.0.0-SNAPSHOT</mydnacodes-notification-service-lib.version>
 
         <!-- Plugins -->
         <protobuf-maven-plugin.version>0.6.1</protobuf-maven-plugin.version>
@@ -166,6 +167,11 @@
                 <groupId>codes.mydna</groupId>
                 <artifactId>auth-keycloak</artifactId>
                 <version>${mydnacodes-auth-lib.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>codes.mydna</groupId>
+                <artifactId>notification-service-lib</artifactId>
+                <version>${mydnacodes-notification-service-lib.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

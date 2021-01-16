@@ -5,6 +5,7 @@ import codes.mydna.clients.grpc.DnaServiceGrpcClient;
 import codes.mydna.clients.grpc.EnzymeServiceGrpcClient;
 import codes.mydna.clients.grpc.GeneServiceGrpcClient;
 import codes.mydna.clients.grpc.models.CheckedEntity;
+import codes.mydna.clients.kafka.KafkaNotificationClient;
 import codes.mydna.entities.AnalysisResultEntity;
 import codes.mydna.entities.FoundEnzymeEntity;
 import codes.mydna.entities.FoundGeneEntity;
@@ -40,6 +41,9 @@ public class AnalysisResultServiceImpl implements AnalysisResultService {
 
     @Inject
     private GeneServiceGrpcClient geneServiceGrpcClient;
+
+    @Inject
+    private KafkaNotificationClient notificationClient;
 
     @Override
     public EntityList<AnalysisResultSummary> getAnalysisResultSummaries(QueryParameters qp, User user) {
@@ -118,6 +122,9 @@ public class AnalysisResultServiceImpl implements AnalysisResultService {
         em.getTransaction().begin();
         em.persist(entity);
         em.getTransaction().commit();
+
+        // TODO: Send email only for large scale services
+        notificationClient.notifyAboutFinishedAnalysis(user, entity.getAnalysisName(), entity.getTotalExecutionTime());
 
         BaseMapper.fromEntity(entity, result);
         return result;

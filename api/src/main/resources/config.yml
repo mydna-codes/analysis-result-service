@@ -22,6 +22,17 @@ kumuluzee:
     server:
       http:
         port: 8082
+  streaming:
+    kafka:
+      producer:
+        bootstrap-servers: localhost:9091
+        acks: all
+        retries: 0
+        batch-size: 16384
+        linger-ms: 1
+        buffer-memory: 33554432
+        key-serializer: org.apache.kafka.common.serialization.StringSerializer
+        value-serializer: org.apache.kafka.common.serialization.StringSerializer
   openapi-mp:
     enabled: true
     servers: http://localhost:8080
