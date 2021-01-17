@@ -25,13 +25,14 @@ public class GrpcAnalysisResultResource extends AnalysisResultServiceGrpc.Analys
     public void insertAnalysisResult(AnalysisResultProto.AnalysisResultInsertionRequest request,
                                      StreamObserver<AnalysisResultProto.AnalysisResultInsertionResponse> responseObserver) {
 
+        LOG.info("Received request to insert analysis report");
         AnalysisResultService analysisResultService = CDI.current().select(AnalysisResultService.class).get();
 
         try {
 
             boolean sendEmail = request.getServiceType() == AnalysisResultProto.AnalysisResultInsertionRequest.ServiceType.LARGE_SCALE;
+            LOG.info("Service type: " + request.getServiceType().name());
 
-            LOG.info("Received request to insert analysis report");
 
             AnalysisResult result = analysisResultService
                     .insertAnalysisResult(
