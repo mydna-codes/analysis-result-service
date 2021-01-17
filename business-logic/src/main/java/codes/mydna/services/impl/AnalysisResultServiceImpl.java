@@ -12,11 +12,13 @@ import codes.mydna.entities.FoundGeneEntity;
 import codes.mydna.exceptions.BadRequestException;
 import codes.mydna.exceptions.NotFoundException;
 import codes.mydna.lib.*;
+import codes.mydna.lib.enums.SequenceAccessType;
 import codes.mydna.lib.enums.Status;
 import codes.mydna.mappers.AnalysisResultMapper;
 import codes.mydna.mappers.BaseMapper;
 import codes.mydna.services.AnalysisResultService;
 import codes.mydna.utils.EntityList;
+import codes.mydna.utils.QueryUtil;
 import codes.mydna.validation.Assert;
 import com.kumuluz.ee.rest.beans.QueryParameters;
 import com.kumuluz.ee.rest.utils.JPAUtils;
@@ -48,11 +50,24 @@ public class AnalysisResultServiceImpl implements AnalysisResultService {
 
     @Override
     public EntityList<AnalysisResultSummary> getAnalysisResultSummaries(QueryParameters qp, User user) {
-        List<AnalysisResultSummary> results = JPAUtils.queryEntities(em, AnalysisResultEntity.class, qp)
+
+        Assert.userNotNull(user);
+
+        long limit = qp.getLimit();
+        long offset = qp.getOffset();
+        QueryParameters queryParameters = QueryUtil.removeLimitAndOffset(qp);
+
+        List<AnalysisResultSummary> results = JPAUtils.queryEntities(em, AnalysisResultEntity.class, queryParameters)
                 .stream()
+                .filter(entity -> entity.getOwnerId().equals(user.getId()))
+                .skip(offset)
+                .limit(limit)
                 .map(AnalysisResultMapper::fromEntityToSummary)
                 .collect(Collectors.toList());
-        Long count = JPAUtils.queryEntitiesCount(em, AnalysisResultEntity.class, qp);
+
+        Long count = JPAUtils.queryEntitiesCount(em, AnalysisResultEntity.class, queryParameters, (p, cb, r)
+                -> (cb.and(p, cb.equal(r.get("ownerId"), user.getId()))));
+
         return new EntityList<>(results, count);
     }
 

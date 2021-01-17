@@ -50,7 +50,6 @@ public class AnalysisResultResource {
     @AuthenticatedAllowed
     public Response getAnalysisResultSummaries(){
         QueryParameters qp = QueryParametersBuilder.buildDefault(uriInfo.getRequestUri().getQuery());
-        QueryUtil.addOrReplaceFilter(qp, new QueryFilter("ownerId", FilterOperation.EQ, user.getId()));
         EntityList<AnalysisResultSummary> summaries = analysisResultService.getAnalysisResultSummaries(qp, user);
         return Response.ok()
                 .entity(summaries.getList())
