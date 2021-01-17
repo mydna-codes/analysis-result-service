@@ -9,6 +9,7 @@ import codes.mydna.clients.kafka.KafkaNotificationClient;
 import codes.mydna.entities.AnalysisResultEntity;
 import codes.mydna.entities.FoundEnzymeEntity;
 import codes.mydna.entities.FoundGeneEntity;
+import codes.mydna.exceptions.BadRequestException;
 import codes.mydna.exceptions.NotFoundException;
 import codes.mydna.lib.*;
 import codes.mydna.lib.enums.Status;
@@ -65,13 +66,21 @@ public class AnalysisResultServiceImpl implements AnalysisResultService {
         if (entity == null)
             throw new NotFoundException(AnalysisResult.class, id);
 
+        if(entity.getStatus() != Status.OK) {
+            return AnalysisResultMapper.fromEntity(entity);
+        }
+
         CheckedEntity<Dna> receivedDna = dnaServiceGrpcClient.getDna(entity.getDnaId(), user);
+
+        // TODO: Notify analysis result service about sequence change
+        //
+        // TODO: For DNA and ENZYMES handle case when sequence is updated but analysis result
+        // TODO: service is not notified because it happened while it was down
         if (receivedDna.getStatus() != Status.OK) {
+
             // If analysis DNA has been removed, remove analysis
-            if (receivedDna.getStatus() == Status.ENTITY_NOT_FOUND) {
-                removeAnalysisResult(id, user);
-            }
-            return null;
+            AnalysisResult result = updateAnalysisResultStatus(id, Status.NO_LONGER_VALID, user);
+            return result;
         }
 
         AnalysisResult result = AnalysisResultMapper.fromEntity(entity);
@@ -109,8 +118,35 @@ public class AnalysisResultServiceImpl implements AnalysisResultService {
         return result;
     }
 
+    private AnalysisResult updateAnalysisResultStatus(String id, Status status, User user){
+
+        AnalysisResultEntity entity = getAnalysisResultEntity(id, user);
+
+        if (entity == null)
+            throw new NotFoundException(AnalysisResult.class, id);
+
+        // Invalid result cant be changed back to valid
+        if (entity.getStatus() != Status.OK && status == Status.OK) {
+            throw new BadRequestException("Invalid analysis result can't be changed to valid.");
+        }
+
+        entity.setStatus(status);
+
+        // Clear result data
+        entity.setDnaId(null);
+        entity.setFoundGenes(null);
+        entity.setFoundEnzymes(null);
+
+        em.getTransaction().begin();
+        em.persist(entity);
+        em.getTransaction().commit();
+
+        return AnalysisResultMapper.fromEntity(entity);
+
+    }
+
     @Override
-    public AnalysisResult insertAnalysisResult(AnalysisResult result, User user) {
+    public AnalysisResult insertAnalysisResult(AnalysisResult result, User user, boolean notifyUser) {
 
         Assert.userNotNull(user);
         Assert.objectNotNull(result, AnalysisResult.class);
@@ -123,8 +159,12 @@ public class AnalysisResultServiceImpl implements AnalysisResultService {
         em.persist(entity);
         em.getTransaction().commit();
 
-        // TODO: Send email only for large scale services
-        notificationClient.notifyAboutFinishedAnalysis(user, entity.getAnalysisName(), entity.getTotalExecutionTime());
+        if(notifyUser) {
+            if(result.getStatus() == Status.OK)
+                notificationClient.notifySuccessfulAnalysis(user, entity.getAnalysisName(), entity.getTotalExecutionTime());
+            else
+                notificationClient.notifyFailedAnalysis(user, result.getAnalysisName());
+        }
 
         BaseMapper.fromEntity(entity, result);
         return result;

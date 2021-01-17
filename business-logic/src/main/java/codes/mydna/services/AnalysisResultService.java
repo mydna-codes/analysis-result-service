@@ -13,7 +13,7 @@ public interface AnalysisResultService {
 
     EntityList<AnalysisResultSummary> getAnalysisResultSummaries(QueryParameters qp, User user);
     AnalysisResult getAnalysisResult(String id, User user);
-    AnalysisResult insertAnalysisResult(AnalysisResult result, User user);
+    AnalysisResult insertAnalysisResult(AnalysisResult result, User user, boolean notifyUser);
     boolean removeAnalysisResult(String id, User user);
 
 }

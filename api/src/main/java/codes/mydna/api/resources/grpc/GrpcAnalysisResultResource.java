@@ -29,10 +29,13 @@ public class GrpcAnalysisResultResource extends AnalysisResultServiceGrpc.Analys
 
         try {
 
+            boolean sendEmail = request.getServiceType() == AnalysisResultProto.AnalysisResultInsertionRequest.ServiceType.LARGE_SCALE;
+
             AnalysisResult result = analysisResultService
                     .insertAnalysisResult(
                             GrpcAnalysisResultMapper.fromGrpcAnalysisResult(request.getAnalysisResult()),
-                            GrpcUserMapper.fromGrpcUser(request.getUser()));
+                            GrpcUserMapper.fromGrpcUser(request.getUser()),
+                            sendEmail);
 
             responseObserver.onNext(AnalysisResultProto.AnalysisResultInsertionResponse
                     .newBuilder()

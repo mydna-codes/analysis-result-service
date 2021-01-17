@@ -1,10 +1,21 @@
 package codes.mydna.lib;
 
+import codes.mydna.lib.enums.Status;
+
 public class AnalysisResultSummary extends BaseType {
 
     private String analysisName;
     private int totalExecutionTime;
     private int analysisExecutionTime;
+    private Status status;
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
 
     public String getAnalysisName() {
         return analysisName;

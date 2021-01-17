@@ -1,5 +1,7 @@
 package codes.mydna.entities;
 
+import codes.mydna.lib.enums.Status;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -18,6 +20,10 @@ public class AnalysisResultEntity extends BaseEntity {
     @Column(name = "OWNER_ID")
     private String ownerId;
 
+    @Column(name = "STATUS")
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
     @Column(name = "ANALYSIS_NAME")
     private String analysisName;
 
@@ -34,9 +40,17 @@ public class AnalysisResultEntity extends BaseEntity {
     @JoinColumn(name = "ANALYSIS_RESULT_ID")
     private List<FoundEnzymeEntity> foundEnzymes;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "ANALYSIS_RESULT_ID")
     private List<FoundGeneEntity> foundGenes;
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
 
     public String getOwnerId() {
         return ownerId;

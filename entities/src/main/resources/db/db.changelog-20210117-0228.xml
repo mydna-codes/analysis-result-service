@@ -1,10 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd">
 
-    <include file="db/db.changelog-20210105-2014.xml"/>
-    <include file="db/db.changelog-20210116-0006.xml"/>
-    <include file="db/db.changelog-20210117-0228.xml"/>
+    <changeSet author="DinMusic" id="add_status_to_analysis_result_table">
+        <addColumn tableName="analysis_result_table">
+            <column name="status" type="varchar(64)"/>
+        </addColumn>
+    </changeSet>
 
 </databaseChangeLog>

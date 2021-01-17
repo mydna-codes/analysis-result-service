@@ -12,6 +12,7 @@ import com.kumuluz.ee.rest.beans.QueryFilter;
 import com.kumuluz.ee.rest.beans.QueryParameters;
 import com.kumuluz.ee.rest.enums.FilterOperation;
 import com.mjamsek.auth.keycloak.annotations.AuthenticatedAllowed;
+import com.mjamsek.auth.keycloak.annotations.SecureResource;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -25,6 +26,7 @@ import javax.ws.rs.core.UriInfo;
 @Path("results")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
+@SecureResource
 @RequestScoped
 public class AnalysisResultResource {
 
@@ -47,7 +49,7 @@ public class AnalysisResultResource {
     @GET
     @AuthenticatedAllowed
     public Response getAnalysisResultSummaries(){
-        QueryParameters qp = QueryParametersBuilder.buildDefault(uriInfo.getRequestUri().getRawQuery());
+        QueryParameters qp = QueryParametersBuilder.buildDefault(uriInfo.getRequestUri().getQuery());
         QueryUtil.addOrReplaceFilter(qp, new QueryFilter("ownerId", FilterOperation.EQ, user.getId()));
         EntityList<AnalysisResultSummary> summaries = analysisResultService.getAnalysisResultSummaries(qp, user);
         return Response.ok()

@@ -10,8 +10,13 @@ service AnalysisResultService {
 }
 
 message AnalysisResultInsertionRequest {
-  User user = 1;
-  AnalysisResult analysisResult = 2;
+  enum ServiceType {
+    NORMAL = 0;
+    LARGE_SCALE = 1;
+  }
+  ServiceType serviceType = 1;
+  User user = 2;
+  AnalysisResult analysisResult = 3;
 }
 
 message AnalysisResultInsertionResponse {

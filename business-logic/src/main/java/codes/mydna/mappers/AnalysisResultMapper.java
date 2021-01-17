@@ -10,25 +10,30 @@ import java.util.stream.Collectors;
 public class AnalysisResultMapper {
 
     public static AnalysisResultSummary fromEntityToSummary(AnalysisResultEntity entity){
+
         if(entity == null)
             return null;
+
         AnalysisResultSummary summary = new AnalysisResultSummary();
         BaseMapper.fromEntity(entity, summary);
         summary.setAnalysisName(entity.getAnalysisName());
         summary.setAnalysisExecutionTime(entity.getAnalysisExecutionTime());
         summary.setTotalExecutionTime(entity.getTotalExecutionTime());
+        summary.setStatus(entity.getStatus());
         return summary;
     }
 
     public static AnalysisResult fromEntity(AnalysisResultEntity entity){
+
         if (entity == null)
             return null;
+
         AnalysisResult result = new AnalysisResult();
         BaseMapper.fromEntity(entity, result);
         result.setAnalysisName(entity.getAnalysisName());
         result.setAnalysisExecutionTime(entity.getAnalysisExecutionTime());
         result.setTotalExecutionTime(entity.getTotalExecutionTime());
-        result.setStatus(Status.OK); // Otherwise there would be no results
+        result.setStatus(entity.getStatus());
         result.setEnzymes(entity.getFoundEnzymes()
                 .stream()
                 .map(FoundEnzymeMapper::fromEntity)
@@ -46,7 +51,6 @@ public class AnalysisResultMapper {
             return null;
 
         AnalysisResultEntity entity = new AnalysisResultEntity();
-
         entity.setAnalysisName(result.getAnalysisName());
         entity.setTotalExecutionTime(result.getTotalExecutionTime());
         entity.setAnalysisExecutionTime(result.getAnalysisExecutionTime());

@@ -45,6 +45,7 @@ public class DnaServiceGrpcClient {
         CheckedEntity<Dna> entity = new CheckedEntity<>();
 
         DnaServiceProto.DnaRequest request = DnaServiceProto.DnaRequest.newBuilder()
+                .setServiceType(DnaServiceProto.DnaRequest.ServiceType.LARGE_SCALE)
                 .setId(id)
                 .setUser(GrpcUserMapper.toGrpcUser(user))
                 .build();
@@ -66,7 +67,10 @@ public class DnaServiceGrpcClient {
 
             if (e.getMessage().equals(io.grpc.Status.NOT_FOUND.getCode().name())) {
                 entity.setStatus(Status.ENTITY_NOT_FOUND);
+            } else if (e.getMessage().equals(io.grpc.Status.PERMISSION_DENIED.getCode().name())) {
+                entity.setStatus(Status.UNAUTHORIZED);
             } else {
+                LOG.severe(DnaServiceGrpcClient.class.getSimpleName() + ": INTERNAL SERVER ERROR");
                 entity.setStatus(Status.INTERNAL_SERVER_ERROR);
             }
             return entity;

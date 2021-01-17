@@ -24,12 +24,23 @@ public class KafkaNotificationClient {
     @StreamProducer
     private Producer<String, String> producer;
 
-    public void notifyAboutFinishedAnalysis(User user, String analysisName, long executionTime){
+    public void notifySuccessfulAnalysis(User user, String analysisName, long executionTime){
 
         Email email = new Email();
         email.setTo(user.getEmail());
-        email.setSubject("Analysis has finished");
-        email.setContent("Analysis '" + analysisName + "' has finished in " + millisToPrettyOutput(executionTime));
+        email.setSubject("Analysis has successfully finished");
+        email.setContent("Analysis '" + analysisName + "' has successfully finished in "
+                + millisToPrettyOutput(executionTime));
+        sendEmail(email);
+    }
+
+    public void notifyFailedAnalysis(User user, String analysisName){
+
+        Email email = new Email();
+        email.setTo(user.getEmail());
+        email.setSubject("Analysis has failed");
+        email.setContent("Analysis '" + analysisName + "' has failed. " +
+                "\nFor more information visit https://mydna.codes website.");
         sendEmail(email);
     }
 
@@ -57,7 +68,10 @@ public class KafkaNotificationClient {
                 UUID.randomUUID().toString(),
                 jsonEmail);
 
-        producer.send(record, (metadata, e) -> { if (e != null) LOG.severe(e.getMessage()); });
+        producer.send(record, (metadata, e) -> {
+            if (e != null)
+                LOG.severe(e.getMessage());
+        });
     }
 
 }
