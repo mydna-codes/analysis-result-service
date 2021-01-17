@@ -31,6 +31,8 @@ public class GrpcAnalysisResultResource extends AnalysisResultServiceGrpc.Analys
 
             boolean sendEmail = request.getServiceType() == AnalysisResultProto.AnalysisResultInsertionRequest.ServiceType.LARGE_SCALE;
 
+            LOG.info("Received request to insert analysis report");
+
             AnalysisResult result = analysisResultService
                     .insertAnalysisResult(
                             GrpcAnalysisResultMapper.fromGrpcAnalysisResult(request.getAnalysisResult()),
