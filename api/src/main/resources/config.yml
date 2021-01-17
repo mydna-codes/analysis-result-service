@@ -22,6 +22,10 @@ kumuluzee:
     server:
       http:
         port: 8082
+    clients:
+      - name: sequence-bank-grpc-client
+        port: 8081
+        address: localhost
   streaming:
     kafka:
       producer:
