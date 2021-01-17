@@ -65,7 +65,7 @@ public class KafkaNotificationClient {
 
         ProducerRecord<String, String> record = new ProducerRecord<>(
                 "send_email",
-                UUID.randomUUID().toString(),
+                "key",
                 jsonEmail);
 
         producer.send(record, (metadata, e) -> {

@@ -25,14 +25,11 @@ public class GrpcAnalysisResultResource extends AnalysisResultServiceGrpc.Analys
     public void insertAnalysisResult(AnalysisResultProto.AnalysisResultInsertionRequest request,
                                      StreamObserver<AnalysisResultProto.AnalysisResultInsertionResponse> responseObserver) {
 
-        LOG.info("Received request to insert analysis report");
         AnalysisResultService analysisResultService = CDI.current().select(AnalysisResultService.class).get();
 
         try {
 
-            boolean sendEmail = request.getServiceType() == AnalysisResultProto.AnalysisResultInsertionRequest.ServiceType.LARGE_SCALE;
-            LOG.info("Service type: " + request.getServiceType().name());
-
+            boolean sendEmail = (request.getServiceType() == AnalysisResultProto.AnalysisResultInsertionRequest.ServiceType.LARGE_SCALE);
 
             AnalysisResult result = analysisResultService
                     .insertAnalysisResult(
@@ -52,6 +49,7 @@ public class GrpcAnalysisResultResource extends AnalysisResultServiceGrpc.Analys
         } catch (UnauthorizedException e) {
             responseObserver.onError(Status.PERMISSION_DENIED.asException());
         } catch (RestException e) {
+            LOG.severe("INTERNAL SERVER ERROR");
             responseObserver.onError(Status.INTERNAL.asException());
         }
 
