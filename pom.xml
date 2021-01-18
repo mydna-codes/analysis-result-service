@@ -6,7 +6,7 @@
 
     <groupId>codes.mydna</groupId>
     <artifactId>analysis-result</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>0.1.0</version>
     <packaging>pom</packaging>
 
     <properties>
@@ -34,8 +34,8 @@
         <!-- mydnacodes -->
         <mydnacodes-rest-lib.version>1.0.2</mydnacodes-rest-lib.version>
         <mydnacodes-auth-lib.version>1.0.0</mydnacodes-auth-lib.version>
-        <mydnacodes-sequence-bank-lib.version>1.0.0-SNAPSHOT</mydnacodes-sequence-bank-lib.version>
-        <mydnacodes-notification-service-lib.version>1.0.0-SNAPSHOT</mydnacodes-notification-service-lib.version>
+        <mydnacodes-sequence-bank-lib.version>0.1.0</mydnacodes-sequence-bank-lib.version>
+        <mydnacodes-notification-service-lib.version>0.1.0</mydnacodes-notification-service-lib.version>
 
         <!-- Plugins -->
         <protobuf-maven-plugin.version>0.6.1</protobuf-maven-plugin.version>
@@ -48,17 +48,17 @@
             <dependency>
                 <groupId>codes.mydna</groupId>
                 <artifactId>business-logic</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
+                <version>0.1.0</version>
             </dependency>
             <dependency>
                 <groupId>codes.mydna</groupId>
                 <artifactId>entities</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
+                <version>0.1.0</version>
             </dependency>
             <dependency>
                 <groupId>codes.mydna</groupId>
                 <artifactId>analysis-result-lib-v1</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
+                <version>0.1.0</version>
             </dependency>
 
             <!-- KumuluzEE (BOM - Bills of Material) -->
