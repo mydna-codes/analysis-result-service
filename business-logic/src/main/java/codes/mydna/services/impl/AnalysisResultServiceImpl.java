@@ -175,14 +175,14 @@ public class AnalysisResultServiceImpl implements AnalysisResultService {
         em.persist(entity);
         em.getTransaction().commit();
 
-        if(notifyUser) {
+        //if(notifyUser) {
             if(result.getStatus() == Status.OK) {
                 notificationClient.notifySuccessfulAnalysis(user, entity.getAnalysisName(), entity.getTotalExecutionTime());
             }
             else {
                 notificationClient.notifyFailedAnalysis(user, result.getAnalysisName());
             }
-        }
+        //}
 
         BaseMapper.fromEntity(entity, result);
         return result;
