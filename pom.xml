@@ -25,7 +25,7 @@
         <kumuluzee-security.version>1.2.0</kumuluzee-security.version>
         <kumuluzee-health.version>2.3.0</kumuluzee-health.version>
         <kumuluzee-migrations.version>1.0.0</kumuluzee-migrations.version>
-        <kumuluzee-streaming.version>1.2.1</kumuluzee-streaming.version>
+        <kumuluzee-streaming.version>1.2.0</kumuluzee-streaming.version>
         <kumuluzee-grpc.version>1.1.0</kumuluzee-grpc.version>
 
         <!-- PostgreSQL-->
