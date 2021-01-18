@@ -7,11 +7,11 @@
     <parent>
         <groupId>codes.mydna</groupId>
         <artifactId>analysis-result</artifactId>
-        <version>0.1.0</version>
+        <version>0.1.2</version>
     </parent>
 
-    <artifactId>lib</artifactId>
-    <name>lib</name>
+    <artifactId>analysis-result-lib</artifactId>
+    <name>analysis-result-lib</name>
 
     <modules>
         <module>v1</module>
