@@ -27,6 +27,7 @@
         <kumuluzee-migrations.version>1.0.0</kumuluzee-migrations.version>
         <kumuluzee-streaming.version>1.2.0</kumuluzee-streaming.version>
         <kumuluzee-grpc.version>1.1.0</kumuluzee-grpc.version>
+        <kumuluzee-graphql.version>1.0.3</kumuluzee-graphql.version>
 
         <!-- PostgreSQL-->
         <postgresql.version>42.2.18</postgresql.version>
@@ -96,6 +97,13 @@
                 <groupId>com.kumuluz.ee.rest-client</groupId>
                 <artifactId>kumuluzee-rest-client</artifactId>
                 <version>${kumuluzee-rest-client.version}</version>
+            </dependency>
+
+            <!-- KumuluzEE (GraphQL) -->
+            <dependency>
+                <groupId>com.kumuluz.ee.graphql</groupId>
+                <artifactId>kumuluzee-graphql</artifactId>
+                <version>${kumuluzee-graphql.version}</version>
             </dependency>
 
             <!-- KumuluzEE (gRPC) -->

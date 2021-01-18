@@ -32,6 +32,11 @@ kumuluzee:
         bootstrap-servers: localhost:9091
         key-serializer: org.apache.kafka.common.serialization.StringSerializer
         value-serializer: org.apache.kafka.common.serialization.StringSerializer
+  graphql:
+    mapping: /graphql
+    schema:
+      base-packages:
+        - codes.mydna.lib
   openapi-mp:
     enabled: true
     servers: http://localhost:8080
@@ -67,7 +72,7 @@ kumuluzee:
         - jndi-name: jdbc/analysis-result-db
           file: db/db.changelog-master.xml
           startup:
-            drop-all: true
+            drop-all: false
             update: true
 
 keycloak:
