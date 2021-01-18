@@ -22,12 +22,14 @@ import codes.mydna.utils.QueryUtil;
 import codes.mydna.validation.Assert;
 import com.kumuluz.ee.rest.beans.QueryParameters;
 import com.kumuluz.ee.rest.utils.JPAUtils;
+import org.hibernate.jpa.internal.util.LogHelper;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 @ApplicationScoped
@@ -94,8 +96,7 @@ public class AnalysisResultServiceImpl implements AnalysisResultService {
         if (receivedDna.getStatus() != Status.OK) {
 
             // If analysis DNA has been removed, remove analysis
-            AnalysisResult result = updateAnalysisResultStatus(id, Status.NO_LONGER_VALID, user);
-            return result;
+            return updateAnalysisResultStatus(id, Status.NO_LONGER_VALID, user);
         }
 
         AnalysisResult result = AnalysisResultMapper.fromEntity(entity);
@@ -175,10 +176,12 @@ public class AnalysisResultServiceImpl implements AnalysisResultService {
         em.getTransaction().commit();
 
         if(notifyUser) {
-            if(result.getStatus() == Status.OK)
+            if(result.getStatus() == Status.OK) {
                 notificationClient.notifySuccessfulAnalysis(user, entity.getAnalysisName(), entity.getTotalExecutionTime());
-            else
+            }
+            else {
                 notificationClient.notifyFailedAnalysis(user, result.getAnalysisName());
+            }
         }
 
         BaseMapper.fromEntity(entity, result);

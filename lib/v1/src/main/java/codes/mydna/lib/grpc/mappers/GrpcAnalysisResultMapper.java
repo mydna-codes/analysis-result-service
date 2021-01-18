@@ -2,6 +2,7 @@ package codes.mydna.lib.grpc.mappers;
 
 import codes.mydna.lib.AnalysisResult;
 import codes.mydna.lib.Dna;
+import codes.mydna.lib.enums.Status;
 import codes.mydna.lib.grpc.AnalysisResultProto;
 
 import java.util.stream.Collectors;
@@ -20,6 +21,7 @@ public class GrpcAnalysisResultMapper {
         result.setAnalysisName(grpcResult.getAnalysisName());
         result.setTotalExecutionTime(grpcResult.getTotalExecutionTime());
         result.setAnalysisExecutionTime(grpcResult.getAnalysisExecutionTime());
+        result.setStatus(Status.valueOf(grpcResult.getStatus()));
         result.setDna(dna);
         result.setGenes(grpcResult.getFoundGenesList()
                 .stream()
@@ -43,6 +45,7 @@ public class GrpcAnalysisResultMapper {
                 .setTotalExecutionTime(result.getTotalExecutionTime())
                 .setAnalysisExecutionTime(result.getAnalysisExecutionTime())
                 .setDnaId(result.getDna().getId())
+                .setStatus(result.getStatus().name())
                 .addAllFoundGenes(result.getGenes()
                         .stream()
                         .map(GrpcFoundGeneMapper::toGrpcFoundGene)

@@ -55,6 +55,7 @@ public class AnalysisResultMapper {
         entity.setTotalExecutionTime(result.getTotalExecutionTime());
         entity.setAnalysisExecutionTime(result.getAnalysisExecutionTime());
         entity.setDnaId(result.getDna().getId());
+        entity.setStatus(result.getStatus());
         entity.setFoundEnzymes(result.getEnzymes()
                 .stream()
                 .map(FoundEnzymeMapper::toEntity)

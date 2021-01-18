@@ -25,6 +25,8 @@ public class GrpcAnalysisResultResource extends AnalysisResultServiceGrpc.Analys
     public void insertAnalysisResult(AnalysisResultProto.AnalysisResultInsertionRequest request,
                                      StreamObserver<AnalysisResultProto.AnalysisResultInsertionResponse> responseObserver) {
 
+        LOG.info("Hello");
+
         AnalysisResultService analysisResultService = CDI.current().select(AnalysisResultService.class).get();
 
         try {
