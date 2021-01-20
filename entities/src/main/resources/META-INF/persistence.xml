@@ -4,12 +4,12 @@
 
         <non-jta-data-source>jdbc/analysis-result-db</non-jta-data-source>
 
-        <class>codes.mydna.entities.BaseEntity</class>
-        <class>codes.mydna.entities.AnalysisResultEntity</class>
-        <class>codes.mydna.entities.FoundGeneEntity</class>
-        <class>codes.mydna.entities.GeneOverlapEntity</class>
-        <class>codes.mydna.entities.FoundEnzymeEntity</class>
-        <class>codes.mydna.entities.EnzymeCutEntity</class>
+        <class>codes.mydna.analysis_result.entities.BaseEntity</class>
+        <class>codes.mydna.analysis_result.entities.AnalysisResultEntity</class>
+        <class>codes.mydna.analysis_result.entities.FoundGeneEntity</class>
+        <class>codes.mydna.analysis_result.entities.GeneOverlapEntity</class>
+        <class>codes.mydna.analysis_result.entities.FoundEnzymeEntity</class>
+        <class>codes.mydna.analysis_result.entities.EnzymeCutEntity</class>
 
         <properties>
             <property name="javax.persistence.schema-generation.create-source" value="metadata"/>

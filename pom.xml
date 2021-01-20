@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>codes.mydna</groupId>
+    <groupId>codes.mydna.analysis-result</groupId>
     <artifactId>analysis-result</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -32,11 +32,11 @@
         <!-- PostgreSQL-->
         <postgresql.version>42.2.18</postgresql.version>
 
-        <!-- mydnacodes -->
-        <mydnacodes-rest-lib.version>1.0.2</mydnacodes-rest-lib.version>
-        <mydnacodes-auth-lib.version>1.0.0</mydnacodes-auth-lib.version>
-        <mydnacodes-sequence-bank-lib.version>1.0.0-SNAPSHOT</mydnacodes-sequence-bank-lib.version>
-        <mydnacodes-notification-service-lib.version>1.0.0-SNAPSHOT</mydnacodes-notification-service-lib.version>
+        <!-- MaDnaCodes -->
+        <mydnacodes-rest-lib.version>1.0.3-SNAPSHOT</mydnacodes-rest-lib.version>
+        <mydnacodes-auth-lib.version>1.0.1-SNAPSHOT</mydnacodes-auth-lib.version>
+        <mydnacodes-sequence-bank.version>1.0.0-SNAPSHOT</mydnacodes-sequence-bank.version>
+        <mydnacodes-notification.version>1.0.0-SNAPSHOT</mydnacodes-notification.version>
 
         <!-- Plugins -->
         <protobuf-maven-plugin.version>0.6.1</protobuf-maven-plugin.version>
@@ -47,17 +47,17 @@
         <dependencies>
             <!-- Internal modules -->
             <dependency>
-                <groupId>codes.mydna</groupId>
-                <artifactId>business-logic</artifactId>
+                <groupId>codes.mydna.analysis-result</groupId>
+                <artifactId>analysis-result-business-logic</artifactId>
                 <version>1.0.0-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>codes.mydna</groupId>
-                <artifactId>entities</artifactId>
+                <groupId>codes.mydna.analysis-result</groupId>
+                <artifactId>analysis-result-entities</artifactId>
                 <version>1.0.0-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>codes.mydna</groupId>
+                <groupId>codes.mydna.analysis-result</groupId>
                 <artifactId>analysis-result-lib-v1</artifactId>
                 <version>1.0.0-SNAPSHOT</version>
             </dependency>
@@ -155,31 +155,24 @@
 
             <!-- mydnacodes -->
             <dependency>
-                <groupId>codes.mydna</groupId>
+                <groupId>codes.mydna.rest</groupId>
                 <artifactId>rest-lib</artifactId>
                 <version>${mydnacodes-rest-lib.version}</version>
             </dependency>
             <dependency>
-                <groupId>codes.mydna</groupId>
-                <artifactId>sequence-bank-lib-v1</artifactId>
-                <version>${mydnacodes-sequence-bank-lib.version}</version>
-            </dependency>
-
-            <!-- Nexus - auth lib -->
-            <dependency>
-                <groupId>codes.mydna</groupId>
-                <artifactId>auth-common</artifactId>
-                <version>${mydnacodes-auth-lib.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>codes.mydna</groupId>
+                <groupId>codes.mydna.auth</groupId>
                 <artifactId>auth-keycloak</artifactId>
                 <version>${mydnacodes-auth-lib.version}</version>
             </dependency>
             <dependency>
-                <groupId>codes.mydna</groupId>
-                <artifactId>notification-service-lib</artifactId>
-                <version>${mydnacodes-notification-service-lib.version}</version>
+                <groupId>codes.mydna.sequence-bank</groupId>
+                <artifactId>sequence-bank-lib-v1</artifactId>
+                <version>${mydnacodes-sequence-bank.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>codes.mydna.notification</groupId>
+                <artifactId>notification-lib</artifactId>
+                <version>${mydnacodes-notification.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

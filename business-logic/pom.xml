@@ -5,19 +5,19 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>codes.mydna</groupId>
+        <groupId>codes.mydna.analysis-result</groupId>
         <artifactId>analysis-result</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>business-logic</artifactId>
+    <artifactId>analysis-result-business-logic</artifactId>
 
-    <name>business-logic</name>
+    <name>analysis-result-business-logic</name>
 
     <dependencies>
         <dependency>
-            <groupId>codes.mydna</groupId>
-            <artifactId>entities</artifactId>
+            <groupId>codes.mydna.analysis-result</groupId>
+            <artifactId>analysis-result-entities</artifactId>
         </dependency>
 
         <dependency>
@@ -52,18 +52,18 @@
             <groupId>com.kumuluz.ee.grpc</groupId>
             <artifactId>kumuluzee-grpc</artifactId>
         </dependency>
-        <dependency>
-            <groupId>codes.mydna</groupId>
-            <artifactId>notification-service-lib</artifactId>
-        </dependency>
 
         <dependency>
-            <groupId>codes.mydna</groupId>
+            <groupId>codes.mydna.notification</groupId>
+            <artifactId>notification-lib</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>codes.mydna.rest</groupId>
             <artifactId>rest-lib</artifactId>
         </dependency>
         <dependency>
-            <groupId>codes.mydna</groupId>
-            <artifactId>auth-common</artifactId>
+            <groupId>codes.mydna.auth</groupId>
+            <artifactId>auth-keycloak</artifactId>
         </dependency>
     </dependencies>
 

@@ -4,20 +4,21 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>codes.mydna</groupId>
+        <groupId>codes.mydna.analysis-result</groupId>
         <artifactId>analysis-result</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>entities</artifactId>
+    <artifactId>analysis-result-entities</artifactId>
 
-    <name>entities</name>
+    <name>analysis-result-entities</name>
 
     <dependencies>
         <dependency>
-            <groupId>codes.mydna</groupId>
+            <groupId>codes.mydna.analysis-result</groupId>
             <artifactId>analysis-result-lib-v1</artifactId>
         </dependency>
+
         <dependency>
             <groupId>com.kumuluz.ee</groupId>
             <artifactId>kumuluzee-jpa-hibernate</artifactId>

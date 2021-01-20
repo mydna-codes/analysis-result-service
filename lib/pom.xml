@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <packaging>pom</packaging>
     <parent>
-        <groupId>codes.mydna</groupId>
+        <groupId>codes.mydna.analysis-result</groupId>
         <artifactId>analysis-result</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
