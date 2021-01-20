@@ -70,6 +70,8 @@ public class KafkaNotificationClient {
         producer.send(record, (metadata, e) -> {
             if (e != null)
                 LOG.severe(e.getMessage());
+            else
+                LOG.info("Email sent successfully");
         });
     }
 
